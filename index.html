@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +15,34 @@
 
     <style>
         :root {
+            /* Theme: Dark (Default) */
             --bg-dark: #0d151f;
             --bg-card: #152232;
+            --header-bg: rgba(13, 21, 31, 0.95);
             --accent-green: #2a5a3b;
             --accent-gold: #d4af37;
             --text-light: #f4f6f8;
             --text-muted: #a0aec0;
             --whatsapp-color: #25d366;
             --white: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --watermark-opacity: 0.035;
+            --footer-bg: #080d14;
+        }
+
+        [data-theme="light"] {
+            /* Theme: Light */
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --header-bg: rgba(248, 250, 252, 0.95);
+            --accent-green: #2a5a3b;
+            --accent-gold: #b8911f;
+            --text-light: #0f172a;
+            --text-muted: #475569;
+            --white: #0f172a;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --watermark-opacity: 0.06;
+            --footer-bg: #e2e8f0;
         }
 
         * {
@@ -30,6 +50,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Open Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -40,7 +61,6 @@
             overflow-x: hidden;
         }
 
-        /* Marca d'água no fundo (Logo / Bússola Centralizada) */
         .watermark-bg {
             position: fixed;
             top: 50%;
@@ -49,7 +69,7 @@
             width: 70vw;
             max-width: 600px;
             height: auto;
-            opacity: 0.03;
+            opacity: var(--watermark-opacity);
             pointer-events: none;
             z-index: 0;
             filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
@@ -68,21 +88,21 @@
             z-index: 1;
         }
 
-        /* Header / Navbar */
         header {
             padding: 15px 0;
-            background: rgba(13, 21, 31, 0.95);
+            background: var(--header-bg);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
         .logo-brand {
@@ -90,12 +110,13 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .logo-svg-header {
             width: 42px;
             height: 42px;
+            flex-shrink: 0;
         }
 
         .logo-text {
@@ -109,7 +130,7 @@
             font-weight: 800;
             font-size: 1.1rem;
             letter-spacing: 0.5px;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .logo-subtitle {
@@ -120,9 +141,17 @@
             font-weight: 600;
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Botão de E-mail garantido em 1 linha */
         .btn-email-header {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             background-color: transparent;
             color: var(--accent-gold);
@@ -133,16 +162,39 @@
             font-size: 0.85rem;
             transition: all 0.3s ease;
             border: 1px solid var(--accent-gold);
+            white-space: nowrap; /* Garante tudo na mesma linha */
+            flex-shrink: 0;
         }
 
         .btn-email-header:hover {
             background-color: var(--accent-gold);
-            color: var(--bg-dark);
+            color: #ffffff;
         }
 
-        /* Hero Section Ajustado */
+        /* Switch do Modo Claro/Escuro */
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
         .hero {
-            padding: 30px 0 60px; /* Reduzido padding superior */
+            padding: 30px 0 60px;
             text-align: center;
             position: relative;
         }
@@ -151,21 +203,21 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.12);
             color: var(--accent-gold);
             padding: 8px 18px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 25px;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .hero h1 {
             font-size: 2.5rem;
             line-height: 1.25;
             margin-bottom: 20px;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .hero h1 span {
@@ -186,7 +238,7 @@
             justify-content: center;
             gap: 12px;
             background: linear-gradient(135deg, var(--whatsapp-color), #1ebe57);
-            color: var(--white);
+            color: #ffffff;
             padding: 16px 32px;
             border-radius: 8px;
             font-size: 1.05rem;
@@ -203,7 +255,6 @@
             box-shadow: 0 15px 30px rgba(37, 211, 102, 0.35);
         }
 
-        /* Diferenciais */
         .features {
             padding: 40px 0;
             display: grid;
@@ -215,19 +266,20 @@
             background-color: var(--bg-card);
             padding: 30px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.3);
+            border-color: var(--accent-gold);
         }
 
         .feature-icon {
             width: 50px;
             height: 50px;
-            background: rgba(42, 90, 59, 0.4);
+            background: rgba(42, 90, 59, 0.15);
             color: var(--accent-gold);
             border-radius: 10px;
             display: flex;
@@ -235,13 +287,13 @@
             justify-content: center;
             font-size: 1.3rem;
             margin-bottom: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.25);
         }
 
         .feature-card h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .feature-card p {
@@ -249,7 +301,6 @@
             font-size: 0.95rem;
         }
 
-        /* Soluções */
         .solutions {
             padding: 60px 0;
             text-align: center;
@@ -258,7 +309,7 @@
         .section-title {
             font-size: 2rem;
             margin-bottom: 10px;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .section-subtitle {
@@ -278,15 +329,16 @@
             border-radius: 12px;
             padding: 30px;
             border-left: 4px solid var(--accent-gold);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
         .solution-item h4 {
             font-size: 1.15rem;
             margin-bottom: 10px;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .solution-item p {
@@ -294,20 +346,20 @@
             font-size: 0.9rem;
         }
 
-        /* CTA Banner */
         .cta-banner {
-            background: linear-gradient(135deg, #152232 0%, #0d151f 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: var(--bg-card);
+            border: 1px solid var(--accent-gold);
             border-radius: 16px;
             padding: 45px 25px;
             text-align: center;
             margin: 40px 0 60px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
         }
 
         .cta-banner h2 {
             font-size: 1.8rem;
             margin-bottom: 15px;
-            color: var(--white);
+            color: var(--text-light);
         }
 
         .cta-banner p {
@@ -316,11 +368,10 @@
             margin: 0 auto 30px;
         }
 
-        /* Footer */
         footer {
-            background-color: #080d14;
+            background-color: var(--footer-bg);
             padding: 40px 0 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
             font-size: 0.9rem;
             color: var(--text-muted);
         }
@@ -355,17 +406,16 @@
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 1px solid var(--border-color);
             font-size: 0.8rem;
         }
 
-        /* Botão Flutuante WhatsApp */
         .whatsapp-float {
             position: fixed;
             bottom: 25px;
             right: 25px;
             background-color: var(--whatsapp-color);
-            color: var(--white);
+            color: #ffffff;
             width: 58px;
             height: 58px;
             border-radius: 50%;
@@ -373,7 +423,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             z-index: 1000;
             transition: transform 0.3s ease;
             text-decoration: none;
@@ -390,15 +440,17 @@
             .cta-banner h2 { font-size: 1.4rem; }
             .footer-content { flex-direction: column; text-align: center; align-items: center; }
             .footer-contact p { justify-content: center; }
+            .logo-title { font-size: 0.95rem; }
+            .logo-subtitle { font-size: 0.65rem; }
+            .btn-email-header { font-size: 0.78rem; padding: 6px 12px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SVG Marca d'água de Fundo -->
     <svg class="watermark-bg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="35" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="2 2"/>
-        <circle cx="50" cy="50" r="42" stroke="#ffffff" stroke-width="1"/>
+        <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="1"/>
         <path d="M50 8 L50 92 M8 50 L92 50" stroke="#d4af37" stroke-width="1"/>
         <path d="M50 5 L58 42 L50 50 L42 42 Z" fill="#d4af37"/>
         <path d="M50 95 L58 58 L50 50 L42 58 Z" fill="#2a5a3b"/>
@@ -406,7 +458,6 @@
         <path d="M95 50 L58 42 L50 50 L58 58 Z" fill="#2a5a3b"/>
     </svg>
 
-    <!-- Header -->
     <header>
         <div class="container nav-container">
             <a href="#" class="logo-brand">
@@ -416,20 +467,25 @@
                     <path d="M50 92 L58 58 L50 50 L42 58 Z" fill="#2a5a3b"/>
                     <path d="M8 50 L42 42 L50 50 L42 58 Z" fill="#2a5a3b"/>
                     <path d="M92 50 L58 42 L50 50 L58 58 Z" fill="#2a5a3b"/>
-                    <path d="M28 62 L42 50 L58 58 L72 45" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M28 62 L42 50 L58 58 L72 45" stroke="#d4af37" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <div class="logo-text">
                     <span class="logo-title">EXTREMO NORTE</span>
                     <span class="logo-subtitle">DIGITAL</span>
                 </div>
             </a>
-            <a href="mailto:extremonortedigital@gmail.com" class="btn-email-header">
-                <i class="fa-regular fa-envelope"></i> Enviar E-mail
-            </a>
+            
+            <div class="header-actions">
+                <a href="mailto:extremonortedigital@gmail.com" class="btn-email-header">
+                    <i class="fa-regular fa-envelope"></i> Enviar E-mail
+                </a>
+                <button id="themeToggleBtn" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+                    <i class="fa-solid fa-sun" id="themeIcon"></i>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero container">
         <span class="hero-badge">
             <i class="fa-solid fa-location-dot"></i> Atendimento Especializado em Boa Vista - Roraima
@@ -441,7 +497,6 @@
         </a>
     </section>
 
-    <!-- Diferenciais -->
     <section class="container features">
         <div class="feature-card">
             <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
@@ -460,7 +515,6 @@
         </div>
     </section>
 
-    <!-- Soluções -->
     <section class="solutions container">
         <h2 class="section-title">Soluções para o seu Negócio</h2>
         <p class="section-subtitle">Tudo o que sua empresa precisa para se destacar no ambiente digital</p>
@@ -481,7 +535,6 @@
         </div>
     </section>
 
-    <!-- Call to Action Final -->
     <section class="container">
         <div class="cta-banner">
             <h2>Pronto para levar sua empresa para o próximo nível?</h2>
@@ -492,7 +545,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <div class="footer-info">
@@ -503,7 +555,7 @@
                         <path d="M50 92 L58 58 L50 50 L42 58 Z" fill="#2a5a3b"/>
                         <path d="M8 50 L42 42 L50 50 L42 58 Z" fill="#2a5a3b"/>
                         <path d="M92 50 L58 42 L50 50 L58 58 Z" fill="#2a5a3b"/>
-                        <path d="M28 62 L42 50 L58 58 L72 45" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M28 62 L42 50 L58 58 L72 45" stroke="#d4af37" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="logo-text">
                         <span class="logo-title">EXTREMO NORTE</span>
@@ -527,5 +579,31 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Recupera tema salvo ou usa escuro como padrão
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+
+            if (theme === 'light') {
+                themeIcon.className = 'fa-solid fa-moon';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun';
+            }
+        }
+    </script>
 </body>
 </html>
